@@ -48,5 +48,8 @@ Thumbs.db
 # Dev
 dev
 
-# Production
+# Production, Firebase
 .firebase
+.firebaserc
+firebase.json
+database.rules.json
