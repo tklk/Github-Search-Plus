@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "gitsearch-plus": {
+      "hosting": {
+        "github-search": [
+          "gitsearch-plus"
+        ]
+      }
+    }
+  }
+}
