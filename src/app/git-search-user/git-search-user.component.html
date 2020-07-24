@@ -1,8 +1,13 @@
+<h3>{{title}}: {{displayQuery}}</h3>
+<a routerLink="/search-topic" routerLinkActive="active">
+    <button>Repositories</button>
+</a>
+  
 <input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery" />
-<button (click)="gitSearch()">Submit</button>
+<button (click)="sendQuery()">Submit</button>
 
 <div *ngIf="searchResults; then thenBlock else elseBlock"></div>
-<ng-template #thenBlock><h3 class="total">Total results for user: {{searchQuery}} #{{searchResults.total_count}}</h3>
+<ng-template #thenBlock><h3 class="total">Total results: {{searchResults.total_count}}</h3>
     <ul class="list">
         <li [ngClass]="{'bg-even' : (i%2 === 0)}" 
             class="list_item" 
@@ -12,12 +17,12 @@
                 <h1 class="title">{{result.login | uppercase}}</h1>
             </a>
             <div class="description">
-                <small>
-                    <a [href]="result.followers_url"><fa-icon [icon]="faAddressBook"></fa-icon> followers</a>
-                    <a [href]="result.subscriptions_url"><fa-icon [icon]="faBell"></fa-icon> subscriptions</a>
-                    <a [href]="result.organizations_url"><fa-icon [icon]="faBuilding"></fa-icon> organization</a>
-                    Repositories: <a [href]="result.repos_url"><fa-icon [icon]="faJournalWhills"></fa-icon></a>
-                    Contributions: <a [href]="result.received_events_url"><fa-icon [icon]="faHandHoldingHeart"></fa-icon></a>
+                <small>                    
+                    <a [href]="result.followers_url"><i class="far fa-address-book"> followers</i></a> &nbsp;
+                    <a [href]="result.subscriptions_url"><i class="far fa-bell"> subscriptions</i></a> &nbsp;
+                    <a [href]="result.organizations_url"><i class="far fa-building"> organization</i></a> &nbsp;
+                    <a [href]="result.repos_url"><i class="fas fa-journal-whills"> Repositories</i></a> &nbsp;
+                    <a [href]="result.received_events_url"><i class="fas fa-hands"> Contributions</i></a>
                 </small>
             </div>
         </li>

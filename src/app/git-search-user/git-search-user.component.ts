@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GitSearchUserService } from '../git-search-user.service'
-import { GitSearchUser } from '../interface/git-search-user'
-import { faAddressBook, faBell, faJournalWhills, faBuilding, faHandHoldingHeart} from '@fortawesome/free-solid-svg-icons';
+import { GitSearchUserService } from '../git-search-user.service';
+import { GitSearchUser } from '../interface/git-search-user';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 
 @Component({
@@ -10,20 +10,27 @@ import { faAddressBook, faBell, faJournalWhills, faBuilding, faHandHoldingHeart}
   styleUrls: ['./git-search-user.component.css']
 })
 export class GitSearchUserComponent implements OnInit {
-  faAddressBook = faAddressBook;
-  faBell = faBell;
-  faJournalWhills = faJournalWhills;
-  faBuilding = faBuilding;
-  faHandHoldingHeart = faHandHoldingHeart;
-
   searchResults: GitSearchUser;
   searchQuery: string;
+  displayQuery: string;
+  title: string;
 
-  constructor(private GitSearchUserService: GitSearchUserService) { }
+  constructor(
+    private GitSearchUserService: GitSearchUserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.searchQuery = 'kevin';
-    this.gitSearch();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.searchQuery = params.get('query');
+      this.displayQuery = params.get('query');
+      this.gitSearch();
+    });
+
+    this.route.data.subscribe((results) => {
+      this.title = results.title;
+    });
   }
   gitSearch = () => {
     this.GitSearchUserService
@@ -31,8 +38,11 @@ export class GitSearchUserComponent implements OnInit {
       .subscribe((results) => {
         this.searchResults = results;
       }, (error) => {
-        alert("Error: " + error.statusText)
+        alert("Error: " + error.statusText);
       })
   }
-
+  sendQuery = () => {
+    this.searchResults = null;
+    this.router.navigate(['/search-user/' + this.searchQuery]);
+  }
 }

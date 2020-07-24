@@ -1,9 +1,17 @@
-<input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery" />
-<button (click)="gitSearch()">Submit</button>
+<h3>{{title}}: {{displayQuery}}</h3>
+<div>
+<a routerLink="/search-user" routerLinkActive="active">
+    <button>Users</button>
+</a>
+</div>
 
+<div>
+<input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery" />
+<button (click)="sendQuery()">Submit</button>
+</div>
 <div *ngIf="searchResults; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
-    <h3 class="total">Total results for topic: {{searchQuery}} #{{searchResults.total_count}}</h3>
+    <h3 class="total">Total results: {{searchResults.total_count}}</h3>
     <ul class="list">
         <li [ngClass]="{'bg-even' : (i%2 === 0)}" 
             class="list_item" 
