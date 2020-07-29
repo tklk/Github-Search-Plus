@@ -13,6 +13,6 @@
   ],
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts", "src/app/git-search-topic.service.spec.ts"
+    "src/**/*.d.ts", "src/app/Unit-test/git-search-repo.service.spec.ts"
   ]
 }

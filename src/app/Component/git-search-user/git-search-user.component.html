@@ -1,10 +1,18 @@
 <h3>{{title}}: {{displayQuery}}</h3>
-<a routerLink="/search-topic" routerLinkActive="active">
-    <button>Repositories</button>
-</a>
-  
-<input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery" />
-<button (click)="sendQuery()">Submit</button>
+<div>
+    <a routerLink="/search-repo" routerLinkActive="active">
+        <button>Search Repositories</button>
+    </a>
+    <a routerLink="/" routerLinkActive="active">
+        <button>Home</button>
+    </a>
+</div>
+<form (ngSubmit)="sendQuery()" [formGroup]="form">
+    <div *ngFor="let key of modelKeys">
+       {{key}}: <input placeholder="Enter {{key}} Here" formControlName="{{key}}" />
+    </div>
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
 
 <div *ngIf="searchResults; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock><h3 class="total">Total results: {{searchResults.total_count}}</h3>

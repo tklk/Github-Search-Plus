@@ -27,3 +27,10 @@
 .bg-even {
     background-color: #15b9ff;
 }
+.ng-valid  {
+    border: 2px solid #42A948; /* green */
+  }
+  
+.ng-invalid:not(form)  {
+    border: 2px solid #a94442; /* red */
+}

@@ -1,0 +1,34 @@
+<h3>{{title}}: {{displayQuery}}</h3>
+<div>
+    <a routerLink="/search-user" routerLinkActive="active">
+        <button>Search Users</button>
+    </a>
+    <a routerLink="/" routerLinkActive="active">
+        <button>Home</button>
+    </a>
+</div>
+
+<form (ngSubmit)="sendQuery()" [formGroup]="form">
+    <div *ngFor="let key of modelKeys">
+       {{key}}: <input placeholder="Enter {{key}} Here" formControlName="{{key}}" />
+    </div>
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
+
+<div *ngIf="searchResults; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <h3 class="total">Total results: {{searchResults.total_count}}</h3>
+    <ul class="list">
+        <app-repos-display 
+            *ngIf="searchResults.repositories"
+            [favorites]="favorites" (updateFavorites)="handleFavorite($event)"
+            [searchResults]="searchResults.repositories">
+        </app-repos-display>
+        <app-codes-display 
+            [searchResults]="searchResults.code"
+            [favorites]="favorites" (updateFavorites)="handleFavorite($event)"
+            *ngIf="searchResults.code">
+        </app-codes-display>
+    </ul>
+</ng-template>
+<ng-template #elseBlock>Loading...</ng-template>

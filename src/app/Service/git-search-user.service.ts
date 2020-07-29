@@ -5,15 +5,14 @@ import { catchError, retry, publishReplay, refCount } from 'rxjs/operators';
 // publishReplay tells Rx to cache the latest emitted
 // refCount tells Rx to keep the Observable alive as long as there are any Subscribers
 
-import { GitSearchTopic } from './interface/git-search-topic';
+import { GitSearchUser } from '../interface/git-search-user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GitSearchTopicService {
-  cachedValues: Array<{ [query: string]: GitSearchTopic }> = [];
-  searchResult: string;
-  //Observable<{ [query: string]: GitSearchTopic }>;
+export class GitSearchUserService {
+  cachedValues: Array<{ [query: string]: GitSearchUser }> = [];
+  searchResult: Observable<{ [query: string]: GitSearchUser }>;
   
   constructor(private http: HttpClient) {}
 
@@ -27,11 +26,10 @@ export class GitSearchTopicService {
     }
     return throwError('Something bad happened; please try again later.');
   }
-
-  getSearchTopic(query: string): Observable<GitSearchTopic> {
+  getSearchUser(query: string): Observable<GitSearchUser> {
     // Cache it once if query value is false
     if (!this.cachedValues[query]) {
-        this.cachedValues[query] = this.http.get(`https://api.github.com/search/repositories?q=${query}`)
+        this.cachedValues[query] = this.http.get(`https://api.github.com/search/users?q=${query}`)
           .pipe(
             retry(3),
             publishReplay(1),
@@ -42,6 +40,8 @@ export class GitSearchTopicService {
     return this.cachedValues[query];
   }
 
-  clearCache() {} // this.searchResult = null;
-  refreshCache() {}
+  // Clear search
+  clearCache() {
+    this.searchResult = null;
+  }
 }

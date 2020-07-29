@@ -1,4 +1,4 @@
-export interface GitSearchTopic {
+export interface GitSearchRepo {
     "total_count": number,
     "incomplete_results": boolean,
     "items": Array<

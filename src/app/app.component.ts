@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { GitSearchUserService } from './git-search-user.service';
-import { GitSearchTopicService } from './git-search-topic.service';
+import { GitSearchUserService } from './Service/git-search-user.service';
+import { GitSearchRepoService } from './Service/git-search-repo.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [GitSearchTopicService, GitSearchUserService]
+  providers: [GitSearchRepoService, GitSearchUserService]
 })
 export class AppComponent implements OnInit{
   constructor(
-    private GitSearchTopicService: GitSearchTopicService,
+    private GitSearchRepoService: GitSearchRepoService,
     private GitSearchUserService: GitSearchUserService,
   ) {}
 
